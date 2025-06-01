@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.HAMEDMKM }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -41,8 +41,8 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[HAMEDMKM]"
+          git config user.email "github-actions[HAMEDMKM]@users.noreply.github.com"
           ls -la data/
           if [ -f data/stats.json ]; then
             git checkout -b auto-update-$(date +%s)
@@ -55,4 +55,4 @@ jobs:
             exit 1
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HAMEDMKM: ${{ secrets.HAMEDMKM }}
