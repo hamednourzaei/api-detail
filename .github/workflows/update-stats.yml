@@ -13,7 +13,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.HAMEDMKM }}
+          token: ${{ secrets.HAMEDMKM }} # برای checkout با توکن
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -40,19 +40,20 @@ jobs:
           npm run update-stats || { echo "Script failed"; exit 1; }
 
       - name: Commit and push changes
+        env:
+          HAMEDMKM: ${{ secrets.HAMEDMKM }} # برای git push
+          GH_TOKEN: ${{ github.token }} # برای gh pr create
         run: |
-          git config user.name "github-actions[HAMEDMKM]"
-          git config user.email "github-actions[HAMEDMKM]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           ls -la data/
           if [ -f data/stats.json ]; then
             git checkout -b auto-update-$(date +%s)
             git add data/stats.json
             git commit -m "🔁 update stats.json automatically" || echo "No changes to commit"
-            git push origin auto-update-$(date +%s)
+            git push https://x-access-token:${HAMEDMKM}@github.com/${{ github.repository }}.git HEAD:auto-update-$(date +%s)
             gh pr create --title "Auto-update stats.json" --body "Automatic update by GitHub Actions" --base main --head auto-update-$(date +%s)
           else
             echo "Error: data/stats.json not found"
             exit 1
           fi
-        env:
-          HAMEDMKM: ${{ secrets.HAMEDMKM }}
