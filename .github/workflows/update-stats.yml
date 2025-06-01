@@ -35,8 +35,7 @@ jobs:
         run: npm ci
 
       - name: Run update script
-        run: |
-          npm run update-stats
+        run: npm run update-stats
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
@@ -47,4 +46,4 @@ jobs:
           body: "Automatic update by GitHub Actions"
           branch: auto-update-stats
           base: main
-          path: data/stats.json
+          path: data
