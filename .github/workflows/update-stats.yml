@@ -46,4 +46,4 @@ jobs:
           body: "Automatic update by GitHub Actions"
           branch: auto-update-stats
           base: main
-          path: data
+        
