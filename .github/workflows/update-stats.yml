@@ -1,0 +1,33 @@
+name: Update Stats JSON
+
+on:
+  schedule:
+    - cron: "0 * * * *" # هر ساعت یک‌بار (به وقت UTC)
+  workflow_dispatch: # قابلیت اجرای دستی
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run update script
+        run: node scripts/updateStats.js
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add stats.json
+          git commit -m "🔁 update stats.json automatically"
+          git push
