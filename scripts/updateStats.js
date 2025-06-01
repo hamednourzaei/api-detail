@@ -1,15 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 
+// مسیر فایل stats.json
 const filePath = path.join(__dirname, "../data/stats.json");
+
+// خواندن فایل و تبدیل آن به آبجکت جاوااسکریپت
 const stats = JSON.parse(fs.readFileSync(filePath, "utf-8"));
 
+// به‌روزرسانی هر stat
 stats.forEach((stat) => {
-  stat.value += Math.floor(Math.random() * 1000);
+  // افزایش مقدار اصلی
+  stat.value += 90;
+
+  // افزایش بازدید هر روز
   stat.chartData.forEach((data) => {
-    data.visits += Math.floor(Math.random() * 100);
+    data.visits += 90;
   });
 });
 
+// بازنویسی فایل با داده‌های جدید
 fs.writeFileSync(filePath, JSON.stringify(stats, null, 2));
-console.log("✅ Stats updated.");
+console.log("✅ Stats updated by +90.");
