@@ -2,8 +2,8 @@ name: Update Stats JSON
 
 on:
   schedule:
-    - cron: "0 * * * *" # اجرای خودکار هر ساعت (به وقت UTC)
-  workflow_dispatch: # اجرای دستی از گیت‌هاب
+    - cron: "0 * * * *" # اجرای خودکار هر ساعت (UTC)
+  workflow_dispatch: # اجرای دستی
 
 jobs:
   update:
