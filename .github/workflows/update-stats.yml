@@ -2,8 +2,8 @@ name: Update Stats JSON
 
 on:
   schedule:
-    - cron: "0 * * * *"  # اجرای خودکار هر ساعت (به وقت UTC)
-  workflow_dispatch:  # اجرای دستی از گیت‌هاب
+    - cron: "0 * * * *" # اجرای هر ساعت
+  workflow_dispatch: # اجرا دستی
 
 jobs:
   update:
@@ -31,9 +31,9 @@ jobs:
         env:
           MYLANDING: ${{ secrets.MYLANDING }}
         run: |
-          git config --global user.name "hamednourzaei"
-          git config --global user.email "hamednourzaie1@gmail.com"
-          git remote set-url origin https://x-access-token:${MYLANDING}@github.com/${{ github.repository }}.git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/stats.json
           git commit -m "🔁 update stats.json automatically" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${MYLANDING}@github.com/${{ github.repository }}.git
           git push origin HEAD:main
