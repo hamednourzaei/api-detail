@@ -2,7 +2,7 @@ name: Update Stats JSON
 
 on:
   schedule:
-    - cron: "0 * * * *" # اجرای ساعتی در نیمه‌شب UTC
+    - cron: "5 * * * *" # اجرای ساعتی در نیمه‌شب UTC
   workflow_dispatch: # اجرای دستی
 
 jobs:
