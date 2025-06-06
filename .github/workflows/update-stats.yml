@@ -44,6 +44,6 @@ jobs:
           commit-message: 🔁 update stats.json automatically
           title: "Auto-update stats.json"
           body: "Automatic update by GitHub Actions"
-          branch: auto-update-stats
+          branch: main
           base: main
           auto-merge: true
