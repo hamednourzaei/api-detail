@@ -2,7 +2,7 @@ name: Update Stats JSON
 
 on:
   schedule:
-    - cron: "5 * * * *" # اجرای ساعتی در نیمه‌شب UTC
+    - cron: "5 * * * *" # اجرای ساعتی در دقیقه ۵
   workflow_dispatch: # اجرای دستی
 
 jobs:
@@ -37,13 +37,11 @@ jobs:
       - name: Run update script
         run: npm run update-stats
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.HAMEDMKM }}
-          commit-message: 🔁 update stats.json automatically
-          title: "Auto-update stats.json"
-          body: "Automatic update by GitHub Actions"
-          branch: auto-update-stats
-          base: main
-          auto-merge: true
+      - name: Commit & Push changes to main
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add .
+          git diff --cached --quiet || git commit -m "🔁 update stats.json automatically"
+          git push https://${{ secrets.HAMEDMKM }}@github.com/hamednourzaei/api-detail.git main
+
